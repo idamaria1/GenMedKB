@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<OBJECTSMODEL study="KnowledgeBase" schemaversion="6" generatedat="2021-05-12T11:21:05.469+03:00">
+<ROLES>
+<ROLE name="administrator" rights="ReadAllWriteAll"/>
+<ROLE name="deleteData" rights="ReadAllWriteAll"/>
+<ROLE name="curator" rights="ReadAllWriteAll"/>
+</ROLES>
+<OBJECTTYPE name="Drug">
+<ATTRIBUTE name="name" isunique="true" javatype="String" sqltype="varchar(1024)"/>
+</OBJECTTYPE>
+<OBJECTTYPE name="Reference">
+<ATTRIBUTE name="title" isunique="true" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="author" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="pmid" isunique="true" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="year" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="mainLink" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="supplementLink" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="whichDrugs" domain="InstancesOf#Drug" javatype="Long" sqltype="bigint"/>
+<ATTRIBUTE name="isClinicalGuideline" javatype="Boolean" sqltype="boolean"/>
+<OBJECTTYPE type="File" name="ReferenceFile" filelimitmaxsize="5" filelimitextensions="pdf">
+<ATTRIBUTE name="_body" javatype="String" sqltype="text"/>
+<ATTRIBUTE name="_name" javatype="String" sqltype="varchar(255)"/>
+<ATTRIBUTE name="_dateModified" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="_size" javatype="Integer" sqltype="integer"/>
+</OBJECTTYPE>
+</OBJECTTYPE>
+<OBJECTTYPE name="Gene">
+<ATTRIBUTE name="name" isunique="true" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="chromosome" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="isReviewed" javatype="Boolean" sqltype="boolean" defaultvalue="False"/>
+<ATTRIBUTE name="reviewTimestamp" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="reviewedBy" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="readyForReview" javatype="Boolean" sqltype="boolean" defaultvalue="False"/>
+<OBJECTTYPE name="Variant">
+<ATTRIBUTE name="variantID" isunique="true" uniquenesscontext="KnowledgeBase" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="unresolvedCommentsVariant" javatype="Boolean" sqltype="boolean" defaultvalue="False"/>
+<ATTRIBUTE name="rsID" isunique="true" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="alternativeNames" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="pos37" isunique="true" javatype="Long" sqltype="bigint"/>
+<ATTRIBUTE name="pos38" isunique="true" javatype="Long" sqltype="bigint"/>
+<ATTRIBUTE name="usedByAlgorithm" javatype="Boolean" sqltype="boolean" defaultvalue="False"/>
+<ATTRIBUTE name="isReviewed" javatype="Boolean" sqltype="boolean" defaultvalue="False"/>
+<ATTRIBUTE name="reviewTimestamp" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="reviewedBy" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="anySubobjectUpdatedAfterReview" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="dateReviewed" javatype="Date" sqltype="date"/>
+<OBJECTTYPE name="VariantReference" domain="InstancesOf#Reference">
+<OBJECTTYPE name="Citation">
+<ATTRIBUTE name="text" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="pageNr" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="isExactQuotation" javatype="Boolean" sqltype="boolean"/>
+</OBJECTTYPE>
+</OBJECTTYPE>
+<OBJECTTYPE name="Allele">
+<ATTRIBUTE name="allele" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="isWildType" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="alleleEffectOnGene" javatype="String" sqltype="varchar(1024)"/>
+</OBJECTTYPE>
+<OBJECTTYPE name="Comment">
+<ATTRIBUTE name="comment" javatype="String" sqltype="varchar(1024)"/>
+</OBJECTTYPE>
+<OBJECTTYPE type="ExternalReadOnlyResource" name="RelatedStarAlleles" isonetoone="true">
+<ROLES>
+<ROLE name="administrator" rights="ReadAll"/>
+<ROLE name="deleteData" rights="ReadAll"/>
+<ROLE name="curator" rights="ReadAll"/>
+</ROLES>
+<SQL.QUERY><![CDATA[SELECT
+  id,
+  variant_fk,
+  array_to_string(array_agg(starallelename),',')::varchar(1024) AS related_star_alleles
+FROM
+(
+SELECT DISTINCT
+   v.id,
+   v.id AS variant_fk,
+   s.name AS starallelename
+FROM
+	related_allele ra
+	LEFT JOIN
+	allele a ON ra.allele_fk=a.id
+	LEFT JOIN
+	star_allele s ON ra.star_allele_fk=s.id
+	LEFT JOIN
+	variant v ON a.variant_fk=v.id
+ORDER BY
+	v.id,s.name
+) x
+GROUP BY
+x.id,x.variant_fk]]></SQL.QUERY>
+<ATTRIBUTE name="relatedStarAlleles" javatype="String" sqltype="varchar(1024)"/>
+</OBJECTTYPE>
+<OBJECTTYPE type="ExternalReadOnlyResource" name="VariantUpdatedAt" isonetoone="true">
+<ROLES>
+<ROLE name="administrator" rights="ReadAll"/>
+<ROLE name="deleteData" rights="ReadAll"/>
+<ROLE name="curator" rights="ReadAll"/>
+</ROLES>
+<SQL.QUERY><![CDATA[SELECT
+  id,
+  variant_fk,
+  variant_updated_at,
+  variant_comment_updated_at,
+  allele_updated_at,
+  GREATEST(variant_updated_at, variant_comment_updated_at, allele_updated_at) AS variant_with_children_updated_at
+FROM
+(
+SELECT
+  v.id,
+  v.id AS variant_fk,
+  v.updated_at_ as variant_updated_at,
+  vc.variant_comment_updated_at as variant_comment_updated_at,
+  a.allele_updated_at as allele_updated_at
+FROM variant v
+	LEFT JOIN (SELECT variant_fk,
+					MAX(updated_at_) AS variant_comment_updated_at
+					FROM comment
+					GROUP BY variant_fk) vc ON v.id=vc.variant_fk
+	LEFT JOIN (SELECT variant_fk,
+					MAX(updated_at_) AS allele_updated_at
+					FROM allele
+					GROUP BY variant_fk) a ON v.id=a.variant_fk
+) b;]]></SQL.QUERY>
+<ATTRIBUTE name="variantUpdatedAt" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="alleleUpdatedAt" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="variantCommentUpdatedAt" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="variantWithChildrenUpdatedAt" javatype="Date" sqltype="timestamp"/>
+</OBJECTTYPE>
+</OBJECTTYPE>
+<OBJECTTYPE name="StarAlleleFunction">
+<ATTRIBUTE name="function" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="isNoFunction" javatype="Boolean" sqltype="boolean" defaultvalue="False"/>
+</OBJECTTYPE>
+<OBJECTTYPE name="Phenotype">
+<ATTRIBUTE name="phenotype" javatype="String" sqltype="varchar(1024)"/>
+<OBJECTTYPE name="PhenotypeTable">
+<ATTRIBUTE name="starAlleleFunction1" domain="InstancesOf#StarAlleleFunction" javatype="Long" sqltype="bigint"/>
+<ATTRIBUTE name="starAlleleFunction2" domain="InstancesOf#StarAlleleFunction" javatype="Long" sqltype="bigint"/>
+</OBJECTTYPE>
+</OBJECTTYPE>
+<OBJECTTYPE name="StarAllele">
+<ATTRIBUTE name="name" isunique="true" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="unresolvedCommentsStar" javatype="Boolean" sqltype="boolean" defaultvalue="False"/>
+<ATTRIBUTE name="function" domain="InstancesOf#StarAlleleFunction" javatype="Long" sqltype="bigint"/>
+<ATTRIBUTE name="isWildType" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="isNormalFunction" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="isUnknownUncertain" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="starAlleleInGuidelineMain" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="starAlleleInSupplementary" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="evidenceForException" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="reasoning" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="importantForAlgorithm" javatype="Boolean" sqltype="boolean" defaultvalue="False"/>
+<ATTRIBUTE name="isReviewed" javatype="Boolean" sqltype="boolean" defaultvalue="False"/>
+<ATTRIBUTE name="reviewTimestamp" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="reviewedBy" javatype="String" sqltype="varchar(1024)"/>
+<OBJECTTYPE name="StarAlleleComment">
+<ATTRIBUTE name="comment" javatype="String" sqltype="varchar(1024)"/>
+</OBJECTTYPE>
+<OBJECTTYPE name="StarAlleleReference" domain="InstancesOf#Reference">
+<OBJECTTYPE name="StarCitation">
+<ATTRIBUTE name="text" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="pageNr" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="isExactQuotation" javatype="Boolean" sqltype="boolean"/>
+</OBJECTTYPE>
+</OBJECTTYPE>
+<OBJECTTYPE name="RelatedAllele" domain="InstancesOf#Allele">
+<ATTRIBUTE name="isDefining" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="comment" javatype="String" sqltype="varchar(1024)"/>
+<OBJECTTYPE type="ExternalReadOnlyResource" name="VariantView" isonetoone="true">
+<ROLES>
+<ROLE name="administrator" rights="ReadAll"/>
+<ROLE name="deleteData" rights="ReadAll"/>
+<ROLE name="curator" rights="ReadAll"/>
+</ROLES>
+<SQL.QUERY><![CDATA[SELECT
+  ra.id, 
+  v.variant_i_d,
+  v.rs_i_d, 
+  v.is_reviewed, 
+  ra.id AS related_allele_fk
+FROM related_allele ra
+	LEFT JOIN
+	allele a ON ra.allele_fk=a.id
+	LEFT JOIN
+	variant v ON a.variant_fk=v.id]]></SQL.QUERY>
+<ATTRIBUTE name="variantID" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="rsID" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="isReviewed" javatype="Boolean" sqltype="boolean"/>
+</OBJECTTYPE>
+</OBJECTTYPE>
+<OBJECTTYPE type="ExternalReadOnlyResource" name="StarAlleleUpdatedAt" isonetoone="true">
+<ROLES>
+<ROLE name="administrator" rights="ReadAll"/>
+<ROLE name="deleteData" rights="ReadAll"/>
+<ROLE name="curator" rights="ReadAll"/>
+</ROLES>
+<SQL.QUERY><![CDATA[SELECT
+  id,
+  star_allele_fk,
+  star_allele_updated_at,
+  star_allele_comment_updated_at,
+  related_allele_updated_at,
+  GREATEST(star_allele_updated_at, star_allele_comment_updated_at, related_allele_updated_at) AS star_allele_with_children_updated_at
+FROM
+(
+SELECT
+  sa.id,
+  sa.id AS star_allele_fk,
+  sa.updated_at_ as star_allele_updated_at,
+  sac.star_allele_comment_updated_at as star_allele_comment_updated_at,
+  ra.related_allele_updated_at as related_allele_updated_at
+FROM star_allele sa
+	LEFT JOIN (SELECT star_allele_fk,
+					MAX(updated_at_) AS star_allele_comment_updated_at
+					FROM star_allele_comment sac
+					GROUP BY star_allele_fk) sac ON sa.id=sac.star_allele_fk
+	LEFT JOIN (SELECT star_allele_fk,
+					MAX(updated_at_) AS related_allele_updated_at
+					FROM related_allele ra
+					GROUP BY star_allele_fk) ra ON sa.id=ra.star_allele_fk
+) a;]]></SQL.QUERY>
+<ATTRIBUTE name="starAlleleUpdatedAt" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="starAlleleCommentUpdatedAt" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="relatedAlleleUpdatedAt" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="starAlleleWithChildrenUpdatedAt" javatype="Date" sqltype="timestamp"/>
+</OBJECTTYPE>
+</OBJECTTYPE>
+</OBJECTTYPE>
+<OBJECTTYPE type="File" name="CuratedDatabaseTable">
+<ATTRIBUTE name="_body" javatype="String" sqltype="text"/>
+<ATTRIBUTE name="_name" javatype="String" sqltype="varchar(255)"/>
+<ATTRIBUTE name="_dateModified" javatype="Date" sqltype="timestamp"/>
+<ATTRIBUTE name="_size" javatype="Integer" sqltype="integer"/>
+<ATTRIBUTE name="whichGene" domain="InstancesOf#Gene" javatype="Long" sqltype="bigint"/>
+<ATTRIBUTE name="fileType" domain="pharmGKBFileType" javatype="String" sqltype="varchar(30)"/>
+<ATTRIBUTE name="dateFromPharmGKB" javatype="Date" sqltype="date"/>
+</OBJECTTYPE>
+<OBJECTTYPE type="ExternalReadOnlyResource" name="ExportVariant">
+<ROLES>
+<ROLE name="administrator" rights="ReadAll"/>
+<ROLE name="deleteData" rights="ReadAll"/>
+<ROLE name="curator" rights="ReadAll"/>
+</ROLES>
+<SQL.QUERY><![CDATA[SELECT
+	id,
+	gene,
+	variant_i_d,
+	rs_i_d,
+	chromosome,
+	pos_h_g37,
+	array_to_string(array_agg(allele),',')::varchar(1024) AS possible_alleles,
+	is_reviewed
+FROM
+(
+SELECT
+	v.id,
+	g.name as gene,
+	v.variant_i_d,
+	v.rs_i_d,
+	g.chromosome,
+	v.pos37 AS pos_h_g37,
+	a.allele,
+	v.is_reviewed
+FROM
+	variant v
+	LEFT JOIN gene g ON v.gene_fk=g.id
+	JOIN allele a ON v.id=a.variant_fk
+WHERE
+	v.used_by_algorithm=TRUE
+ORDER BY
+	g.name,v.variant_i_d,a.allele
+) a
+GROUP BY
+	id,
+	gene,
+	variant_i_d,
+	rs_i_d,
+	chromosome,
+	pos_h_g37,
+	is_reviewed
+ORDER BY
+	gene,
+	pos_h_g37,
+	variant_i_d]]></SQL.QUERY>
+<ATTRIBUTE name="gene" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="variantID" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="rsID" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="chromosome" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="posHG37" javatype="Long" sqltype="bigint"/>
+<ATTRIBUTE name="possibleAlleles" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="isReviewed" javatype="Boolean" sqltype="boolean"/>
+</OBJECTTYPE>
+<OBJECTTYPE type="ExternalReadOnlyResource" name="ExportStarAllele">
+<ROLES>
+<ROLE name="administrator" rights="ReadAll"/>
+<ROLE name="deleteData" rights="ReadAll"/>
+<ROLE name="curator" rights="ReadAll"/>
+</ROLES>
+<SQL.QUERY><![CDATA[SELECT
+   s.id AS id,
+	g.name AS gene,
+	s.name AS star_allele_name,
+	f.function AS function,
+	f.is_no_function AS is_no_function,
+	s.is_wild_type AS is_wild_type,
+	s.is_reviewed AS is_reviewed
+FROM
+	star_allele s
+	LEFT JOIN gene g ON s.gene_fk=g.id
+	LEFT JOIN star_allele_function f ON s.function=f.id
+WHERE
+	s.important_for_algorithm=True
+ORDER BY
+	g.name,
+	s.name]]></SQL.QUERY>
+<ATTRIBUTE name="gene" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="starAlleleName" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="function" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="isNoFunction" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="isWildType" javatype="Boolean" sqltype="boolean"/>
+<ATTRIBUTE name="isReviewed" javatype="Boolean" sqltype="boolean"/>
+</OBJECTTYPE>
+<OBJECTTYPE type="ExternalReadOnlyResource" name="ExportStarAlleleDefinition">
+<ROLES>
+<ROLE name="administrator" rights="ReadAll"/>
+<ROLE name="deleteData" rights="ReadAll"/>
+<ROLE name="curator" rights="ReadAll"/>
+</ROLES>
+<SQL.QUERY><![CDATA[--shows defining Variants of Star-alleles (leaves out wild type star-alleles)
+SELECT
+   ra.id,
+   g.name as gene,
+   s.name AS star_allele_name,
+   v.variant_i_d,
+   a.allele,
+   g.is_reviewed
+FROM
+	related_allele ra
+	LEFT JOIN
+	allele a ON ra.allele_fk=a.id
+	INNER JOIN -- inner join to leave out star alleles that are important_for_algorithm=False
+	(SELECT * FROM star_allele WHERE important_for_algorithm=True) s ON ra.star_allele_fk=s.id
+	INNER JOIN -- inner join to leave out variants that are "not used by algorithm"
+	(SELECT * FROM variant WHERE used_by_algorithm=True) v ON a.variant_fk=v.id
+	LEFT JOIN gene g ON v.gene_fk=g.id
+WHERE
+   s.is_wild_type=False
+   AND
+	ra.is_defining=True
+ORDER BY
+	g.name,
+	s.name,
+	v.variant_i_d,
+	a.allele]]></SQL.QUERY>
+<ATTRIBUTE name="gene" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="starAlleleName" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="variantID" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="allele" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="isReviewed" javatype="Boolean" sqltype="boolean"/>
+</OBJECTTYPE>
+<OBJECTTYPE type="ExternalReadOnlyResource" name="ExportFunctionToPhenotype">
+<ROLES>
+<ROLE name="administrator" rights="ReadAll"/>
+<ROLE name="deleteData" rights="ReadAll"/>
+<ROLE name="curator" rights="ReadAll"/>
+</ROLES>
+<SQL.QUERY><![CDATA[SELECT
+	pt.id,
+	g.name as gene,
+	f1.function as function1,
+	f2.function as function2,
+	p.phenotype
+FROM
+	phenotype_table pt
+	LEFT JOIN phenotype p ON pt.phenotype_fk=p.id
+	LEFT JOIN gene g ON p.gene_fk=g.id
+	LEFT JOIN star_allele_function f1 ON pt.star_allele_function1=f1.id
+	LEFT JOIN star_allele_function f2 ON pt.star_allele_function2=f2.id
+ORDER BY
+	g.name,
+	f1.function,
+	f2.function,
+	p.phenotype]]></SQL.QUERY>
+<ATTRIBUTE name="gene" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="function1" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="function2" javatype="String" sqltype="varchar(1024)"/>
+<ATTRIBUTE name="phenotype" javatype="String" sqltype="varchar(1024)"/>
+</OBJECTTYPE>
+</OBJECTSMODEL>

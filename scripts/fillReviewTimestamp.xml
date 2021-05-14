@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCRIPT generatedat="2021-05-07T17:04:58.807+03:00" name="fillReviewTimestamp" schemaversion="1" scriptinglanguage="JavaScript"><![CDATA[function fillReviewTimestamp(isReviewed, reviewTimestamp) {
+   Server.logInfo("Script input parameters: isReviewed - " + isReviewed + "; isReviewedDate - " + reviewTimestamp);
+   if(isReviewed == "True" && (reviewTimestamp=="" || reviewTimestamp==null)) {
+   	return annaAjahetk();
+   } else if (isReviewed=="True" && reviewTimestamp!="") {
+   	return reviewTimestamp;
+   } else {
+   	return "";
+   }
+}
+
+
+function annaAjahetk(sisend) {
+    var kuupaev = new Date();
+
+    return kuupaev.getFullYear()
+        + "-"
+        + ("0" + (kuupaev.getMonth() + 1)).slice(-2)
+        + "-"
+        + ("0" + kuupaev.getDate()).slice(-2)
+        + "T"
+        + ("0" + kuupaev.getHours()).slice(-2)
+        + ":"
+        + ("0" + kuupaev.getMinutes()).slice(-2)
+        + ":"
+        + ("0" + kuupaev.getSeconds()).slice(-2);
+}]]>
+<SCRIPTTESTS>
+<INPUTSET name="NotReviewedNoTimestamp" expectedresult="">
+<INPUT name="isReviewed" value="False"/>
+<INPUT name="reviewTimestamp" value="" isna="true"/>
+</INPUTSET>
+<INPUTSET name="NotReviewedButTimestamp" expectedresult="">
+<INPUT name="isReviewed" value="False"/>
+<INPUT name="reviewTimestamp" value="2009-01-01T00:22:23"/>
+</INPUTSET>
+<INPUTSET name="ReviewedNoTimestamp" expectedresult="" isignored="true">
+<INPUT name="isReviewed" value="True"/>
+<INPUT name="reviewTimestamp" value="" isna="true"/>
+</INPUTSET>
+<INPUTSET name="ReviewedAndTimestamp" expectedresult="2021-05-07T16:36:59">
+<INPUT name="isReviewed" value="True"/>
+<INPUT name="reviewTimestamp" value="2021-05-07T16:36:59"/>
+</INPUTSET>
+</SCRIPTTESTS>
+</SCRIPT>

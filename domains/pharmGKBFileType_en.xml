@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SELECTIONS schemaversion="1" languagecode="en" generatedat="2021-04-01T10:25:06.085+03:00">
+<SELECTION languagecode="en" domain="pharmGKBFileType" desc="pharmGKBFileType">
+<ITEM code="1" name="PharmGKB allele definition table"/>
+<ITEM code="2" name="PharmGKB allele functionality reference"/>
+<ITEM code="3" name="PharmGKB diplotype-phenotype table"/>
+</SELECTION>
+</SELECTIONS>

@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<QUESTIONNAIRE schemaversion="7" languagecode="en" study="KnowledgeBase" code="knowledgeBase" description="Knowledge Base Questionnaire" build="248" generatedat="2021-05-14T16:00:17.256+03:00" helptextishtml="false" displayvisualidarea="false" displayprevnextbuttons="false" newmoduleid="561">
+<ROLES>
+<ROLE name="administrator"/>
+<ROLE name="curator"/>
+</ROLES>
+<MODULE id="1" description="GROUPING MODULE">
+<BLOCK id="16" helptextishtml="false" questiontext="Genes" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="17" isinstancedeletable="false" objecttype="Gene" helptextishtml="false" addrowtext="Add new gene" fieldtextishtml="false" questiontext="Genes" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="257" isreadonly="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<QUESTION id="494" isreadonly="true" objectattributename="chromosome" helptextishtml="false" commentable="false" fieldtext="chromosome" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="500" isreadonly="true" objectattributename="isReviewed" columnhint="Automatically no if updated after last review" helptextishtml="false" commentable="false" fieldtext="isReviewed" fieldtextishtml="false" questiontextishtml="false"/>
+<CHECK id="551" isreadonly="true" objectattributename="readyForReview" helptextishtml="false" commentable="false" fieldtext="readyForReview" fieldtextishtml="false" questiontextishtml="false"/>
+<BLOCK id="125" isspaceborder="true" helptextishtml="false" questiontext="#.name#" questiontextishtml="false" visualmode="AsTab">
+<TEXT id="529" helptextishtml="false" fieldtextishtml="false" questiontext="&lt;font color='ff8c00'&gt;Gene is in &quot;reviewed&quot; state. Any modification to its attributes or subobjects will bring it to &quot;not reviewed&quot; state.&lt;/font&gt;">
+<CONFLICT mastermoduleid="533" function="IsEqual" value="True" autodelete="false" action="Show"/>
+</TEXT>
+<QUESTION id="18" isreadonly="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="495" isreadonly="true" objectattributename="chromosome" helptextishtml="false" commentable="false" fieldtextishtml="false" maxinputlength="1024" questiontext="chromosome" questiontextishtml="false"/>
+<CHECK id="533" isreadonly="true" ishidden="true" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isAnyVariantOrStarAlleleNotReviewed" value="True" action="Disable">
+<INPUT name="variantsIsReviewed" value="#Variant*.isReviewed#"/>
+<INPUT name="starAllelesIsReviewed" value="#StarAllele*.isReviewed#"/>
+</CALLSCRIPT>
+</CHECK>
+<TEXT id="123" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<TEXT id="124" helptextishtml="false" fieldtext="dateCreated" fieldtextishtml="false" questiontext="#:createdAt#" questiontextishtml="false"/>
+<CHECK id="552" isreadonly="true" objectattributename="readyForReview" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="readyForReview" questiontextishtml="false"/>
+<BLOCK id="25" helptextishtml="false" questiontext="Variants of #.name#" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="26" isinstancedeletable="false" objecttype="Variant" helptextishtml="false" addrowtext="Add new variant" fieldtextishtml="false" questiontext="Variants of #Gene.name#" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="236" isreadonly="true" issaveable="false" objectattributename="variantID" helptextishtml="false" commentable="false" fieldtext="variantID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="27" isreadonly="true" issaveable="false" objectattributename="rsID" helptextishtml="false" commentable="false" fieldtext="rsID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<TEXT id="250" helptextishtml="false" fieldtext="Related StarAlleles" fieldtextishtml="false" questiontext="#RelatedStarAlleles.relatedStarAlleles#" questiontextishtml="false"/>
+<QUESTION.NUMERIC id="29" isreadonly="true" issaveable="false" objectattributename="pos37" helptextishtml="false" commentable="false" fieldtext="pos37" fieldtextishtml="false" maxinputlength="18" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<QUESTION.NUMERIC id="30" isreadonly="true" issaveable="false" ishidden="true" objectattributename="pos38" helptextishtml="false" commentable="false" fieldtext="pos38" fieldtextishtml="false" maxinputlength="18" questiontextishtml="false"/>
+<CHECK id="119" objectattributename="usedByAlgorithm" helptextishtml="false" commentable="false" fieldtext="usedByAlgorithm" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<TEXT id="173" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<CHECK id="526" isreadonly="true" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isModifiedAfterReview" value="True" action="Disable">
+<INPUT name="rev" value="#.reviewTimestamp#"/>
+<INPUT name="mod" value="#VariantUpdatedAt.variantWithChildrenUpdatedAt#"/>
+</CALLSCRIPT>
+</CHECK>
+<CHECK id="530" isreadonly="true" ishidden="true" objecttype="Gene" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isGeneReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isAnyVariantOrStarAlleleNotReviewed" value="True" action="Disable">
+<INPUT name="variantsIsReviewed" value="#Variant*.isReviewed#"/>
+<INPUT name="starAllelesIsReviewed" value="#StarAllele*.isReviewed#"/>
+</CALLSCRIPT>
+</CHECK>
+<QUESTION id="527" isreadonly="true" objectattributename="reviewedBy" helptextishtml="false" commentable="false" fieldtext="reviewedBy" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewedBy" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewedBy" value="#.reviewedBy#"/>
+<INPUT name="username" value="#System.userUsername#"/>
+</CALLSCRIPT>
+</QUESTION>
+<QUESTION id="528" isreadonly="true" objectattributename="reviewTimestamp" helptextishtml="false" commentable="false" fieldtext="reviewTimestamp" fieldtextishtml="false" maxinputlength="500" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewTimestamp" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewTimestamp" value="#.reviewTimestamp#"/>
+</CALLSCRIPT>
+</QUESTION>
+<BLOCK id="258" isspaceborder="true" helptextishtml="false" questiontext="#.variantID#" questiontextishtml="false" visualmode="AsTab">
+<TEXT id="557" helptextishtml="false" fieldtextishtml="false" questiontext="&lt;font color='ff8c00'&gt;Warning: Variant has unresolved issues. Please refer to the comments section for more information.&lt;/font&gt;">
+<CONFLICT mastermoduleid="558" function="IsEqual" value="True" action="Show"/>
+</TEXT>
+<QUESTION id="259" isreadonly="true" objectattributename="variantID" helptextishtml="false" commentable="false" fieldtext="variantID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="260" isreadonly="true" objectattributename="rsID" helptextishtml="false" commentable="false" fieldtext="rsID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<TEXT id="261" helptextishtml="false" fieldtext="Related StarAlleles" fieldtextishtml="false" questiontext="#RelatedStarAlleles.relatedStarAlleles#" questiontextishtml="false"/>
+<QUESTION id="262" isreadonly="true" objectattributename="alternativeNames" helptextishtml="false" commentable="false" fieldtext="alternativeNames" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION.NUMERIC id="263" isreadonly="true" objectattributename="pos37" helptextishtml="false" commentable="false" fieldtext="pos37" fieldtextishtml="false" maxinputlength="18" questiontextishtml="false"/>
+<QUESTION.NUMERIC id="264" isreadonly="true" objectattributename="pos38" helptextishtml="false" commentable="false" fieldtext="pos38" fieldtextishtml="false" maxinputlength="18" questiontextishtml="false"/>
+<TEXT id="265" helptextishtml="false" fieldtext="dateCreated" fieldtextishtml="false" questiontext="#:createdAt#" questiontextishtml="false"/>
+<TEXT id="266" helptextishtml="false" fieldtext="dateUpdated" fieldtextishtml="false" questiontext="#:lastUpdatedAt#" questiontextishtml="false"/>
+<CHECK id="269" isreadonly="true" objectattributename="usedByAlgorithm" helptextishtml="false" commentable="false" fieldtext="usedByAlgorithm" fieldtextishtml="false" questiontextishtml="false"/>
+<TEXT id="270" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<TEXT id="271" helptextishtml="false" fieldtext="updater" fieldtextishtml="false" questiontext="#:lastUpdater#" questiontextishtml="false"/>
+<CHECK id="520" isreadonly="true" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isModifiedAfterReview" value="True" action="Disable">
+<INPUT name="rev" value="#.reviewTimestamp#"/>
+<INPUT name="mod" value="#VariantUpdatedAt.variantWithChildrenUpdatedAt#"/>
+</CALLSCRIPT>
+</CHECK>
+<CHECK id="532" isreadonly="true" ishidden="true" objecttype="Gene" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isGeneReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isAnyVariantOrStarAlleleNotReviewed" value="True" action="Disable">
+<INPUT name="variantsIsReviewed" value="#Variant*.isReviewed#"/>
+<INPUT name="starAllelesIsReviewed" value="#StarAllele*.isReviewed#"/>
+</CALLSCRIPT>
+</CHECK>
+<QUESTION id="521" isreadonly="true" objectattributename="reviewedBy" helptextishtml="false" commentable="false" fieldtext="reviewedBy" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewedBy" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewedBy" value="#.reviewedBy#"/>
+<INPUT name="username" value="#System.userUsername#"/>
+</CALLSCRIPT>
+</QUESTION>
+<QUESTION id="522" isreadonly="true" objectattributename="reviewTimestamp" helptextishtml="false" commentable="false" fieldtext="reviewTimestamp" fieldtextishtml="false" maxinputlength="500" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewTimestamp" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewTimestamp" value="#.reviewTimestamp#"/>
+</CALLSCRIPT>
+</QUESTION>
+<BLOCK id="43" helptextishtml="false" questiontext="Alleles of #.variantID#" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="44" isinstancedeletable="false" objecttype="Allele" helptextishtml="false" addrowtext="Add new allele" fieldtextishtml="false" questiontext="Allele" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="45" isreadonly="true" objectattributename="allele" helptextishtml="false" commentable="false" fieldtext="allele" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="46" isreadonly="true" objectattributename="isWildType" helptextishtml="false" commentable="false" fieldtext="isWildType" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<BLOCK id="184" isspaceborder="true" helptextishtml="false" questiontext="#Variant.rsID#:#.allele#" questiontextishtml="false">
+<QUESTION id="185" isreadonly="true" objectattributename="allele" helptextishtml="false" commentable="false" fieldtext="allele" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="186" isreadonly="true" objectattributename="isWildType" helptextishtml="false" commentable="false" fieldtext="isWildType" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<QUESTION id="187" isreadonly="true" objectattributename="alleleEffectOnGene" helptextishtml="false" commentable="false" fieldtext="alleleEffectOnGene" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="355" helptextishtml="false" questiontext="Add new allele" questiontextishtml="false">
+<QUESTION id="359" ismandatory="true" objectattributename="allele" helptextishtml="false" commentable="false" fieldtext="allele" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="360" ismandatory="true" objectattributename="isWildType" helptextishtml="false" commentable="false" fieldtext="isWildType" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<QUESTION id="361" objectattributename="alleleEffectOnGene" helptextishtml="false" commentable="false" fieldtext="alleleEffectOnGene" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="490" helptextishtml="false" questiontext="Edit #Variant.rsID#:#.allele#" questiontextishtml="false">
+<QUESTION id="491" ismandatory="true" objectattributename="allele" helptextishtml="false" commentable="false" fieldtext="allele" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="492" ismandatory="true" objectattributename="isWildType" helptextishtml="false" commentable="false" fieldtext="isWildType" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<QUESTION id="493" objectattributename="alleleEffectOnGene" helptextishtml="false" commentable="false" fieldtext="alleleEffectOnGene" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="35" helptextishtml="false" questiontext="VariantReference" questiontextishtml="false" visualmode="AsTab">
+<TREE.MULTI id="36" objecttype="VariantReference" helptextishtml="false" domain="InstancesOf#Reference*" instanceformat="#.pmid# #.author# #.year#" fieldtextishtml="false" questiontext="VariantReference" questiontextishtml="false">
+<BLOCK id="37" isspaceborder="true" helptextishtml="false" questiontext="Citation" questiontextishtml="false" visualmode="AsTab">
+<BLOCK id="38" helptextishtml="false" questiontext="Citation" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="39" isinstancedeletable="false" objecttype="Citation" helptextishtml="false" addrowtext="Add new citation" fieldtextishtml="false" questiontext="Citation" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="40" isreadonly="true" objectattributename="text" helptextishtml="false" commentable="false" fieldtext="text" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="42" isreadonly="true" objectattributename="isExactQuotation" helptextishtml="false" commentable="false" fieldtext="isExactQuotation" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<TEXT id="534" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<BLOCK id="188" isspaceborder="true" helptextishtml="false" questiontext="#Variant.rsID# citation" questiontextishtml="false">
+<QUESTION id="189" isreadonly="true" objectattributename="text" helptextishtml="false" commentable="false" fieldtext="text" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="191" isreadonly="true" objectattributename="isExactQuotation" helptextishtml="false" commentable="false" fieldtext="isExactQuotation" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<TEXT id="535" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="370" helptextishtml="false" questiontext="Add new citation" questiontextishtml="false">
+<QUESTION id="371" objectattributename="text" helptextishtml="false" fieldtext="text" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="373" objectattributename="isExactQuotation" helptextishtml="false" commentable="false" fieldtext="isExactQuotation" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="374" helptextishtml="false" questiontext="Edit citation" questiontextishtml="false">
+<QUESTION id="375" objectattributename="text" helptextishtml="false" fieldtext="text" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="377" objectattributename="isExactQuotation" helptextishtml="false" commentable="false" fieldtext="isExactQuotation" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+</BLOCK>
+</TREE.MULTI>
+</BLOCK>
+<BLOCK id="105" helptextishtml="false" questiontext="Comment" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="107" isinstancedeletable="false" objecttype="Comment" helptextishtml="false" addrowtext="Add new comment" fieldtextishtml="false" questiontext="Comment" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="106" isreadonly="true" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<TEXT id="225" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<TEXT id="226" helptextishtml="false" fieldtext="dateCreated" fieldtextishtml="false" questiontext="#:createdAt#" questiontextishtml="false"/>
+<BLOCK id="192" isspaceborder="true" helptextishtml="false" questiontext="Comment by #:creator# on #:createdAt#" questiontextishtml="false">
+<QUESTION id="193" isreadonly="true" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="378" helptextishtml="false" questiontext="Add new comment" questiontextishtml="false">
+<QUESTION id="380" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="379" helptextishtml="false" questiontext="Edit comment" questiontextishtml="false">
+<QUESTION id="382" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="272" helptextishtml="false" questiontext="Add new variant" questiontextishtml="false">
+<QUESTION id="273" ismandatory="true" objectattributename="variantID" helptextishtml="false" fieldtext="variantID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="274" objectattributename="rsID" helptextishtml="false" fieldtext="rsID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="275" objectattributename="alternativeNames" helptextishtml="false" fieldtext="alternativeNames" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION.NUMERIC id="276" objectattributename="pos37" helptextishtml="false" fieldtext="pos37" fieldtextishtml="false" maxinputlength="18" questiontextishtml="false"/>
+<QUESTION.NUMERIC id="277" objectattributename="pos38" helptextishtml="false" fieldtext="pos38" fieldtextishtml="false" maxinputlength="18" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="481" helptextishtml="false" questiontext="Edit #.variantID#" questiontextishtml="false">
+<QUESTION id="482" ismandatory="true" objectattributename="variantID" helptextishtml="false" fieldtext="variantID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="483" objectattributename="rsID" helptextishtml="false" fieldtext="rsID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="558" objectattributename="unresolvedCommentsVariant" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="Any unresolved issues in comments?" questiontextishtml="false"/>
+<QUESTION id="484" objectattributename="alternativeNames" helptextishtml="false" fieldtext="alternativeNames" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION.NUMERIC id="485" objectattributename="pos37" helptextishtml="false" fieldtext="pos37" fieldtextishtml="false" maxinputlength="18" questiontextishtml="false"/>
+<QUESTION.NUMERIC id="486" objectattributename="pos38" helptextishtml="false" fieldtext="pos38" fieldtextishtml="false" maxinputlength="18" questiontextishtml="false"/>
+<CHECK id="489" objectattributename="usedByAlgorithm" helptextishtml="false" commentable="false" fieldtext="usedByAlgorithm" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<CHECK id="523" isreadonly="true" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isModifiedAfterReview" value="True" action="Disable">
+<INPUT name="rev" value="#.reviewTimestamp#"/>
+<INPUT name="mod" value="#VariantUpdatedAt.variantWithChildrenUpdatedAt#"/>
+</CALLSCRIPT>
+</CHECK>
+<CHECK id="531" ishidden="true" objecttype="Gene" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isGeneReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isAnyVariantOrStarAlleleNotReviewed" value="True" action="Disable">
+<INPUT name="variantsIsReviewed" value="#Variant*.isReviewed#"/>
+<INPUT name="starAllelesIsReviewed" value="#StarAllele*.isReviewed#"/>
+</CALLSCRIPT>
+</CHECK>
+<QUESTION id="524" isreadonly="true" objectattributename="reviewedBy" helptextishtml="false" commentable="false" fieldtext="reviewedBy" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewedBy" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewedBy" value="#.reviewedBy#"/>
+<INPUT name="username" value="#System.userUsername#"/>
+</CALLSCRIPT>
+</QUESTION>
+<QUESTION id="525" isreadonly="true" objectattributename="reviewTimestamp" helptextishtml="false" commentable="false" fieldtext="reviewTimestamp" fieldtextishtml="false" maxinputlength="500" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewTimestamp" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewTimestamp" value="#.reviewTimestamp#"/>
+</CALLSCRIPT>
+</QUESTION>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="47" helptextishtml="false" questiontext="StarAlleles of #.name#" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="48" isinstancedeletable="false" objecttype="StarAllele" helptextishtml="false" addrowtext="Add new star allele" fieldtextishtml="false" questiontext="StarAlleles of #Gene.name#" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="49" isreadonly="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<SELECTION id="50" isreadonly="true" objectattributename="function" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="function" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<CHECK id="404" isreadonly="true" objectattributename="importantForAlgorithm" helptextishtml="false" commentable="false" fieldtext="importantForAlgorithm" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<CHECK id="508" isreadonly="true" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isModifiedAfterReview" value="True" action="Disable">
+<INPUT name="rev" value="#.reviewTimestamp#"/>
+<INPUT name="mod" value="#StarAlleleUpdatedAt.starAlleleWithChildrenUpdatedAt#"/>
+</CALLSCRIPT>
+</CHECK>
+<QUESTION id="509" isreadonly="true" objectattributename="reviewedBy" helptextishtml="false" commentable="false" fieldtext="reviewedBy" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewedBy" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewedBy" value="#.reviewedBy#"/>
+<INPUT name="username" value="#System.userUsername#"/>
+</CALLSCRIPT>
+</QUESTION>
+<QUESTION id="510" isreadonly="true" objectattributename="reviewTimestamp" helptextishtml="false" commentable="false" fieldtext="reviewTimestamp" fieldtextishtml="false" maxinputlength="500" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewTimestamp" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewTimestamp" value="#.reviewTimestamp#"/>
+</CALLSCRIPT>
+</QUESTION>
+<BLOCK id="281" isspaceborder="true" helptextishtml="false" questiontext="#Gene.name# #.name#" questiontextishtml="false" visualmode="AsTab">
+<TEXT id="561" helptextishtml="false" fieldtextishtml="false" questiontext="&lt;font color='ff8c00'&gt;Warning: Star allele has unresolved issues. Please refer to the comments section for more information.&lt;/font&gt;">
+<CONFLICT mastermoduleid="559" function="IsEqual" value="True" action="Show"/>
+</TEXT>
+<QUESTION id="282" isreadonly="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<SELECTION id="283" isreadonly="true" objectattributename="function" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="function" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<CHECK id="284" isreadonly="true" objectattributename="isUnknownUncertain" helptextishtml="false" commentable="false" fieldtext="isUnknownUncertain" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="412" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="412" isreadonly="true" objectattributename="isNormalFunction" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="isNormalFunction" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="284" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="409" isreadonly="true" objectattributename="isWildType" helptextishtml="false" commentable="false" fieldtext="isWildType" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="284" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="285" isreadonly="true" objectattributename="starAlleleInGuidelineMain" helptextishtml="false" commentable="false" fieldtext="starAlleleInGuidelineMain" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="284" function="IsEqual" value="True" action="Hide"/>
+<CONFLICT mastermoduleid="412" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="286" isreadonly="true" objectattributename="starAlleleInSupplementary" helptextishtml="false" commentable="false" fieldtext="starAlleleInSupplementary" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="284" function="IsEqual" value="True" action="Hide"/>
+<CONFLICT mastermoduleid="412" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="287" isreadonly="true" objectattributename="evidenceForException" helptextishtml="false" commentable="false" fieldtext="evidenceForException" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="284" function="IsEqual" value="True" action="Show"/>
+<CALLSCRIPT function="hideException" value="True" action="Show">
+<INPUT name="main" value="#.starAlleleInGuidelineMain#"/>
+<INPUT name="supplement" value="#.starAlleleInSupplementary#"/>
+</CALLSCRIPT>
+<CALLSCRIPT function="hideException2" value="True" action="Show">
+<INPUT name="normal" value="#.isNormalFunction#"/>
+<INPUT name="wild" value="#.isWildType#"/>
+</CALLSCRIPT>
+</CHECK>
+<QUESTION id="416" isreadonly="true" objectattributename="reasoning" helptextishtml="false" commentable="false" fieldtextishtml="false" maxinputlength="1024" questiontext="reasoning" questiontextishtml="false">
+<CONFLICT mastermoduleid="287" function="IsEqual" value="True" action="Show"/>
+</QUESTION>
+<CHECK id="405" isreadonly="true" objectattributename="importantForAlgorithm" helptextishtml="false" commentable="false" fieldtext="importantForAlgorithm" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CALLSCRIPT function="starAlleleRelevant" value="" action="SetReadOnlyAnswer">
+<INPUT name="unknown" value="#.isUnknownUncertain#"/>
+<INPUT name="normal" value="#.isNormalFunction#"/>
+<INPUT name="wild" value="#.isWildType#"/>
+<INPUT name="main" value="#.starAlleleInGuidelineMain#"/>
+<INPUT name="supplement" value="#.starAlleleInSupplementary#"/>
+<INPUT name="exception" value="#.evidenceForException#"/>
+</CALLSCRIPT>
+</CHECK>
+<TREE.MULTI id="288" isreadonly="true" objecttype="StarAlleleReference" helptextishtml="false" domain="InstancesOf#Reference*" instanceformat="#.pmid# #.author# #.year#" fieldtext="StarAlleleReference" fieldtextishtml="false" questiontextishtml="false"/>
+<TEXT id="289" helptextishtml="false" fieldtext="dateCreated" fieldtextishtml="false" questiontext="#:createdAt#" questiontextishtml="false"/>
+<TEXT id="290" helptextishtml="false" fieldtext="dateUpdated" fieldtextishtml="false" questiontext="#:lastUpdatedAt#" questiontextishtml="false"/>
+<TEXT id="293" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<TEXT id="294" helptextishtml="false" fieldtext="updater" fieldtextishtml="false" questiontext="#:lastUpdater#" questiontextishtml="false"/>
+<CHECK id="511" isreadonly="true" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isModifiedAfterReview" value="True" action="Disable">
+<INPUT name="rev" value="#.reviewTimestamp#"/>
+<INPUT name="mod" value="#StarAlleleUpdatedAt.starAlleleWithChildrenUpdatedAt#"/>
+</CALLSCRIPT>
+</CHECK>
+<QUESTION id="512" isreadonly="true" objectattributename="reviewedBy" helptextishtml="false" commentable="false" fieldtext="reviewedBy" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewedBy" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewedBy" value="#.reviewedBy#"/>
+<INPUT name="username" value="#System.userUsername#"/>
+</CALLSCRIPT>
+</QUESTION>
+<QUESTION id="513" isreadonly="true" objectattributename="reviewTimestamp" helptextishtml="false" commentable="false" fieldtext="reviewTimestamp" fieldtextishtml="false" maxinputlength="500" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewTimestamp" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewTimestamp" value="#.reviewTimestamp#"/>
+</CALLSCRIPT>
+</QUESTION>
+<BLOCK id="51" helptextishtml="false" questiontext="Alleles of #Gene.name##StarAllele.name#" questiontextishtml="false" visualmode="AsTab">
+<TREE.MULTI id="53" objecttype="RelatedAllele" helptextishtml="false" domain="InstancesOf#Allele*" instanceformat="#Variant.variantID#:#.allele#" fieldtextishtml="false" questiontext="Alleles of #Gene.name##StarAllele.name#" questiontextishtml="false">
+<BLOCK id="233" isspaceborder="true" helptextishtml="false" questiontext="Alleles of #Gene.name# #StarAllele.name#" questiontextishtml="false" visualmode="AsTab">
+<CHECK id="234" objectattributename="isDefining" helptextishtml="false" commentable="false" fieldtext="isDefining" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<QUESTION id="235" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontext="comment" questiontextishtml="false"/>
+</BLOCK>
+<TEXT id="245" helptextishtml="false" fieldtext="variantID" fieldtextishtml="false" questiontext="#VariantView.variantID#" questiontextishtml="false"/>
+<TEXT id="248" helptextishtml="false" fieldtext="is variant reviewed" fieldtextishtml="false" questiontext="#VariantView.isReviewed#" questiontextishtml="false"/>
+<CHECK id="72" objectattributename="isDefining" helptextishtml="false" commentable="false" fieldtext="isDefining" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<QUESTION id="153" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontext="comment" questiontextishtml="false"/>
+</TREE.MULTI>
+</BLOCK>
+<BLOCK id="212" helptextishtml="false" questiontext="References of #Gene.name##StarAllele.name#" questiontextishtml="false" visualmode="AsTab">
+<TREE.MULTI id="209" objecttype="StarAlleleReference" helptextishtml="false" domain="InstancesOf#Reference*" instanceformat="#.pmid# #.author# #.year#" fieldtext="StarAlleleReference" fieldtextishtml="false" questiontextishtml="false">
+<BLOCK id="384" isspaceborder="true" helptextishtml="false" questiontext="Citation" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="386" isinstancedeletable="false" objecttype="StarCitation" helptextishtml="false" addrowtext="Add new citation" fieldtextishtml="false" questiontext="Citation" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="387" isreadonly="true" objectattributename="text" helptextishtml="false" fieldtext="text" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="389" isreadonly="true" objectattributename="isExactQuotation" helptextishtml="false" commentable="false" fieldtext="isExactQuotation" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<BLOCK id="390" isspaceborder="true" helptextishtml="false" questiontext="#StarAllele.name# citation" questiontextishtml="false">
+<QUESTION id="391" isreadonly="true" objectattributename="text" helptextishtml="false" commentable="false" fieldtext="text" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="393" isreadonly="true" objectattributename="isExactQuotation" helptextishtml="false" commentable="false" fieldtext="isExactQuotation" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="394" helptextishtml="false" questiontext="Add new citation" questiontextishtml="false">
+<QUESTION id="395" objectattributename="text" helptextishtml="false" fieldtext="text" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="397" objectattributename="isExactQuotation" helptextishtml="false" commentable="false" fieldtext="isExactQuotation" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="398" helptextishtml="false" questiontext="Edit citation" questiontextishtml="false">
+<QUESTION id="399" objectattributename="text" helptextishtml="false" fieldtext="text" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="401" objectattributename="isExactQuotation" helptextishtml="false" commentable="false" fieldtext="isExactQuotation" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+</TREE.MULTI>
+</BLOCK>
+<BLOCK id="536" helptextishtml="false" questiontext="Comments of #Gene.name##StarAllele.name#" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="537" isinstancedeletable="false" objecttype="StarAlleleComment" helptextishtml="false" addrowtext="Add new comment" fieldtextishtml="false" questiontext="Comment" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="538" isreadonly="true" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<TEXT id="539" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<TEXT id="540" helptextishtml="false" fieldtext="dateCreated" fieldtextishtml="false" questiontext="#:createdAt#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<BLOCK id="541" isspaceborder="true" helptextishtml="false" questiontext="Comment by #:creator# on #:createdAt#" questiontextishtml="false">
+<QUESTION id="542" isreadonly="true" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="543" helptextishtml="false" questiontext="Add new comment" questiontextishtml="false">
+<QUESTION id="544" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="545" helptextishtml="false" questiontext="Edit comment" questiontextishtml="false">
+<QUESTION id="546" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="194" helptextishtml="false" questiontext="Add new star allele" questiontextishtml="false">
+<QUESTION id="203" ismandatory="true" objectattributename="name" helptextishtml="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<SELECTION id="204" objectattributename="function" helptextishtml="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="function" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<CHECK id="205" objectattributename="isUnknownUncertain" helptextishtml="false" commentable="false" fieldtext="isUnknownUncertain" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="413" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="413" objectattributename="isNormalFunction" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="isNormalFunction" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="205" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="410" objectattributename="isWildType" helptextishtml="false" commentable="false" fieldtext="isWildType" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="205" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="206" objectattributename="starAlleleInGuidelineMain" helptextishtml="false" fieldtext="starAlleleInGuidelineMain" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="205" function="IsEqual" value="True" action="Hide"/>
+<CONFLICT mastermoduleid="413" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="207" objectattributename="starAlleleInSupplementary" helptextishtml="false" fieldtext="starAlleleInSupplementary" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="205" function="IsEqual" value="True" action="Hide"/>
+<CONFLICT mastermoduleid="413" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="208" objectattributename="evidenceForException" helptextishtml="false" commentable="false" fieldtext="evidenceForException" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="205" function="IsEqual" value="True" action="Show"/>
+<CALLSCRIPT function="hideException" value="True" action="Show">
+<INPUT name="main" value="#.starAlleleInGuidelineMain#"/>
+<INPUT name="supplement" value="#.starAlleleInSupplementary#"/>
+</CALLSCRIPT>
+<CALLSCRIPT function="hideException2" value="True" action="Show">
+<INPUT name="normal" value="#.isNormalFunction#"/>
+<INPUT name="wild" value="#.isWildType#"/>
+</CALLSCRIPT>
+</CHECK>
+<QUESTION id="417" ismandatory="true" objectattributename="reasoning" helptextishtml="false" commentable="false" fieldtextishtml="false" maxinputlength="1024" questiontext="reasoning" questiontextishtml="false">
+<CONFLICT mastermoduleid="208" function="IsEqual" value="True" action="Show"/>
+</QUESTION>
+<CHECK id="406" isreadonly="true" objectattributename="importantForAlgorithm" helptextishtml="false" commentable="false" fieldtext="importantForAlgorithm" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CALLSCRIPT function="starAlleleRelevant" value="" action="SetReadOnlyAnswer">
+<INPUT name="unknown" value="#.isUnknownUncertain#"/>
+<INPUT name="normal" value="#.isNormalFunction#"/>
+<INPUT name="wild" value="#.isWildType#"/>
+<INPUT name="main" value="#.starAlleleInGuidelineMain#"/>
+<INPUT name="supplement" value="#.starAlleleInSupplementary#"/>
+<INPUT name="exception" value="#.evidenceForException#"/>
+</CALLSCRIPT>
+</CHECK>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="295" helptextishtml="false" questiontext="Edit #Gene.name# #.name#" questiontextishtml="false">
+<QUESTION id="296" ismandatory="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<SELECTION id="297" objectattributename="function" helptextishtml="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="function" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<CHECK id="559" objectattributename="unresolvedCommentsStar" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="Any unresolved issues in comments?" questiontextishtml="false"/>
+<CHECK id="298" objectattributename="isUnknownUncertain" helptextishtml="false" commentable="false" fieldtext="isUnknownUncertain" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="414" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="414" objectattributename="isNormalFunction" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="isNormalFunction" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="298" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="411" objectattributename="isWildType" helptextishtml="false" commentable="false" fieldtext="isWildType" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="298" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="299" objectattributename="starAlleleInGuidelineMain" helptextishtml="false" fieldtext="starAlleleInGuidelineMain" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="298" function="IsEqual" value="True" action="Hide"/>
+<CONFLICT mastermoduleid="414" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="300" objectattributename="starAlleleInSupplementary" helptextishtml="false" fieldtext="starAlleleInSupplementary" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="298" function="IsEqual" value="True" action="Hide"/>
+<CONFLICT mastermoduleid="414" function="IsEqual" value="True" action="Hide"/>
+</CHECK>
+<CHECK id="301" objectattributename="evidenceForException" helptextishtml="false" commentable="false" fieldtext="evidenceForException" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CONFLICT mastermoduleid="298" function="IsEqual" value="True" action="Show"/>
+<CALLSCRIPT function="hideException" value="True" action="Show">
+<INPUT name="main" value="#.starAlleleInGuidelineMain#"/>
+<INPUT name="supplement" value="#.starAlleleInSupplementary#"/>
+</CALLSCRIPT>
+<CALLSCRIPT function="hideException2" value="True" action="Show">
+<INPUT name="normal" value="#.isNormalFunction#"/>
+<INPUT name="wild" value="#.isWildType#"/>
+</CALLSCRIPT>
+</CHECK>
+<QUESTION id="418" objectattributename="reasoning" helptextishtml="false" commentable="false" fieldtextishtml="false" maxinputlength="1024" questiontext="reasoning" questiontextishtml="false">
+<CONFLICT mastermoduleid="301" function="IsEqual" value="True" action="Show"/>
+</QUESTION>
+<CHECK id="407" isreadonly="true" objectattributename="importantForAlgorithm" helptextishtml="false" commentable="false" fieldtext="importantForAlgorithm" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo">
+<CALLSCRIPT function="starAlleleRelevant" value="" action="SetReadOnlyAnswer">
+<INPUT name="unknown" value="#.isUnknownUncertain#"/>
+<INPUT name="normal" value="#.isNormalFunction#"/>
+<INPUT name="wild" value="#.isWildType#"/>
+<INPUT name="main" value="#.starAlleleInGuidelineMain#"/>
+<INPUT name="supplement" value="#.starAlleleInSupplementary#"/>
+<INPUT name="exception" value="#.evidenceForException#"/>
+</CALLSCRIPT>
+</CHECK>
+<CHECK id="514" isreadonly="true" ishidden="true" objectattributename="isReviewed" helptextishtml="false" commentable="false" fieldtext="isReviewed" fieldtextishtml="false" questiontextishtml="false">
+<CALLSCRIPT function="isModifiedAfterReview" value="True" action="Disable">
+<INPUT name="rev" value="#.reviewTimestamp#"/>
+<INPUT name="mod" value="#StarAlleleUpdatedAt.starAlleleWithChildrenUpdatedAt#"/>
+</CALLSCRIPT>
+</CHECK>
+<QUESTION id="515" isreadonly="true" ishidden="true" objectattributename="reviewedBy" helptextishtml="false" commentable="false" fieldtext="reviewedBy" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewedBy" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewedBy" value="#.reviewedBy#"/>
+<INPUT name="username" value="#System.userUsername#"/>
+</CALLSCRIPT>
+</QUESTION>
+<QUESTION id="516" isreadonly="true" ishidden="true" objectattributename="reviewTimestamp" helptextishtml="false" commentable="false" fieldtext="reviewTimestamp" fieldtextishtml="false" maxinputlength="500" questiontextishtml="false">
+<CALLSCRIPT function="fillReviewTimestamp" value="" action="SetReadOnlyAnswer">
+<INPUT name="isReviewed" value="#.isReviewed#"/>
+<INPUT name="reviewTimestamp" value="#.reviewTimestamp#"/>
+</CALLSCRIPT>
+</QUESTION>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="13" helptextishtml="false" questiontext="StarAllele functions of #.name#" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="14" isinstancedeletable="false" objecttype="StarAlleleFunction" helptextishtml="false" addrowtext="Add new function" fieldtextishtml="false" questiontext="StarAllele functions of #Gene.name#" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="15" isreadonly="true" objectattributename="function" helptextishtml="false" fieldtext="function" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<CHECK id="238" isreadonly="true" objectattributename="isNoFunction" helptextishtml="false" fieldtext="isNoFunction" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<BLOCK id="213" isspaceborder="true" helptextishtml="false" questiontext="#Gene.name# #.function#" questiontextishtml="false">
+<QUESTION id="214" isreadonly="true" issaveable="false" objectattributename="function" helptextishtml="false" fieldtext="function" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="240" isreadonly="true" issaveable="false" objectattributename="isNoFunction" helptextishtml="false" commentable="false" fieldtext="isNoFunction" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="304" helptextishtml="false" questiontext="Add new function" questiontextishtml="false">
+<QUESTION id="305" ismandatory="true" objectattributename="function" helptextishtml="false" fieldtext="function" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="307" ismandatory="true" objectattributename="isNoFunction" helptextishtml="false" fieldtext="isNoFunction" fieldtextishtml="false" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="308" helptextishtml="false" questiontext="Edit #Gene.name# #.function#" questiontextishtml="false">
+<QUESTION id="309" ismandatory="true" objectattributename="function" helptextishtml="false" fieldtext="function" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="311" objectattributename="isNoFunction" helptextishtml="false" fieldtext="isNoFunction" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="54" helptextishtml="false" questiontext="Phenotypes of #.name#" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="55" isinstancedeletable="false" objecttype="Phenotype" helptextishtml="false" addrowtext="Add new phenotype" fieldtextishtml="false" questiontext="Phenotypes of #Gene.name#" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="97" isreadonly="true" objectattributename="phenotype" helptextishtml="false" commentable="false" fieldtext="phenotype" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<BLOCK id="215" isspaceborder="true" helptextishtml="false" questiontext="#Gene.name# #.phenotype#" questiontextishtml="false" visualmode="AsTab">
+<QUESTION id="216" isreadonly="true" objectattributename="phenotype" helptextishtml="false" commentable="false" fieldtext="phenotype" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<TABLE id="101" isinstancedeletable="false" objecttype="PhenotypeTable" helptextishtml="false" addrowtext="Add new definition" fieldtextishtml="false" questiontext="PhenotypeTable" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<SELECTION id="56" isreadonly="true" issaveable="false" objectattributename="starAlleleFunction1" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction1" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<SELECTION id="57" isreadonly="true" issaveable="false" objectattributename="starAlleleFunction2" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction2" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<BLOCK id="316" isspaceborder="true" helptextishtml="false" questiontext="Definition table of #Gene.name# #Phenotype.phenotype#" questiontextishtml="false" visualmode="AsTab">
+<SELECTION id="317" isreadonly="true" objectattributename="starAlleleFunction1" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction1" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<SELECTION id="318" isreadonly="true" objectattributename="starAlleleFunction2" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction2" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="319" helptextishtml="false" questiontext="Add new definition row of #Phenotype.phenotype#" questiontextishtml="false">
+<SELECTION id="320" ismandatory="true" objectattributename="starAlleleFunction1" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction1" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<SELECTION id="321" ismandatory="true" objectattributename="starAlleleFunction2" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction2" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="217" helptextishtml="false" questiontext="Edit definition row of #Phenotype.phenotype#" questiontextishtml="false">
+<SELECTION id="218" ismandatory="true" objectattributename="starAlleleFunction1" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction1" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<SELECTION id="219" ismandatory="true" objectattributename="starAlleleFunction2" helptextishtml="false" commentable="false" domain="InstancesOf#Gene/StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction2" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="312" helptextishtml="false" questiontext="Add new phenotype" questiontextishtml="false">
+<QUESTION id="313" ismandatory="true" objectattributename="phenotype" helptextishtml="false" fieldtext="phenotype" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="314" helptextishtml="false" questiontext="Edit #Gene.name# #.phenotype#" questiontextishtml="false">
+<QUESTION id="315" ismandatory="true" objectattributename="phenotype" helptextishtml="false" fieldtext="phenotype" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="253" helptextishtml="false" questiontext="Add new gene" questiontextishtml="false">
+<QUESTION id="254" ismandatory="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtextishtml="false" maxinputlength="1024" questiontext="name" questiontextishtml="false"/>
+<QUESTION id="497" ismandatory="true" objectattributename="chromosome" helptextishtml="false" commentable="false" fieldtextishtml="false" maxinputlength="1024" questiontext="chromosome" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="255" helptextishtml="false" questiontext="Edit #.name#" questiontextishtml="false">
+<QUESTION id="256" ismandatory="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtextishtml="false" maxinputlength="1024" questiontext="name" questiontextishtml="false"/>
+<QUESTION id="498" ismandatory="true" objectattributename="chromosome" helptextishtml="false" commentable="false" fieldtextishtml="false" maxinputlength="1024" questiontext="chromosome" questiontextishtml="false"/>
+<CHECK id="555" objectattributename="readyForReview" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="readyForReview" questiontextishtml="false"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="2" helptextishtml="false" questiontext="References" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="3" isinstancedeletable="false" objecttype="Reference" helptextishtml="false" addrowtext="Add new reference" fieldtextishtml="false" questiontext="Reference" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="5" isreadonly="true" objectattributename="title" helptextishtml="false" commentable="false" fieldtext="title" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="141" isreadonly="true" objectattributename="author" helptextishtml="false" commentable="false" fieldtext="author" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<QUESTION id="4" isreadonly="true" objectattributename="pmid" helptextishtml="false" commentable="false" fieldtext="pmid" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="6" isreadonly="true" objectattributename="year" helptextishtml="false" fieldtext="year" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<SELECTION id="9" isreadonly="true" objectattributename="whichDrugs" helptextishtml="false" commentable="false" domain="InstancesOf#Drug*" instanceformat="#.name#" fieldtext="whichDrugs" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDown"/>
+<CHECK id="12" isreadonly="true" objectattributename="isClinicalGuideline" helptextishtml="false" commentable="false" fieldtext="isClinicalGuideline" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<FILE.MULTI id="76" isreadonly="true" objecttype="ReferenceFile" helptextishtml="false" fieldtext="ReferenceFile" fieldtextishtml="false" questiontextishtml="false"/>
+<TEXT id="138" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<TEXT id="139" helptextishtml="false" fieldtext="date" fieldtextishtml="false" questiontext="#:createdAt#" questiontextishtml="false"/>
+<BLOCK id="322" isspaceborder="true" helptextishtml="false" questiontext="#.pmid# #.author# #.year#" questiontextishtml="false" visualmode="AsTab">
+<QUESTION id="323" isreadonly="true" objectattributename="title" helptextishtml="false" commentable="false" fieldtext="title" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="324" isreadonly="true" objectattributename="author" helptextishtml="false" commentable="false" fieldtext="author" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="325" isreadonly="true" objectattributename="pmid" helptextishtml="false" commentable="false" fieldtext="pmid" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="326" isreadonly="true" objectattributename="year" helptextishtml="false" commentable="false" fieldtext="year" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<SELECTION id="327" isreadonly="true" objectattributename="whichDrugs" helptextishtml="false" commentable="false" domain="InstancesOf#Drug*" instanceformat="#.name#" fieldtext="whichDrugs" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDown"/>
+<CHECK id="328" isreadonly="true" objectattributename="isClinicalGuideline" helptextishtml="false" commentable="false" fieldtext="isClinicalGuideline" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<FILE.MULTI id="329" isreadonly="true" objecttype="ReferenceFile" helptextishtml="false" fieldtext="ReferenceFile" fieldtextishtml="false" questiontextishtml="false"/>
+<TEXT id="330" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<TEXT id="331" helptextishtml="false" fieldtext="date" fieldtextishtml="false" questiontext="#:createdAt#" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="140" helptextishtml="false" questiontext="Add new reference" questiontextishtml="false">
+<QUESTION id="142" objectattributename="title" helptextishtml="false" commentable="false" fieldtext="title" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="143" objectattributename="author" helptextishtml="false" commentable="false" fieldtext="author" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="144" objectattributename="pmid" helptextishtml="false" commentable="false" fieldtext="pmid" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="145" objectattributename="year" helptextishtml="false" commentable="false" fieldtext="year" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="146" objectattributename="mainLink" helptextishtml="false" commentable="false" fieldtext="mainLink" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="147" objectattributename="supplementLink" helptextishtml="false" commentable="false" fieldtext="supplementLink" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<SELECTION id="148" objectattributename="whichDrugs" helptextishtml="false" commentable="false" domain="InstancesOf#Drug*" instanceformat="#.name#" fieldtext="whichDrugs" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDown"/>
+<CHECK id="149" objectattributename="isClinicalGuideline" helptextishtml="false" commentable="false" fieldtext="isClinicalGuideline" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<FILE.MULTI id="150" objecttype="ReferenceFile" helptextishtml="false" fieldtext="ReferenceFile" fieldtextishtml="false" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="332" helptextishtml="false" questiontext="Edit #.pmid# #.author# #.year#" questiontextishtml="false">
+<QUESTION id="333" objectattributename="title" helptextishtml="false" commentable="false" fieldtext="title" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="334" objectattributename="author" helptextishtml="false" commentable="false" fieldtext="author" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="335" objectattributename="pmid" helptextishtml="false" commentable="false" fieldtext="pmid" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="336" objectattributename="year" helptextishtml="false" commentable="false" fieldtext="year" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="337" objectattributename="mainLink" helptextishtml="false" commentable="false" fieldtext="mainLink" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="338" objectattributename="supplementLink" helptextishtml="false" commentable="false" fieldtext="supplementLink" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<SELECTION id="339" objectattributename="whichDrugs" helptextishtml="false" commentable="false" domain="InstancesOf#Drug*" instanceformat="#.name#" fieldtext="whichDrugs" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDown"/>
+<CHECK id="340" objectattributename="isClinicalGuideline" helptextishtml="false" commentable="false" fieldtext="isClinicalGuideline" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<FILE.MULTI id="341" objecttype="ReferenceFile" helptextishtml="false" fieldtext="ReferenceFile" fieldtextishtml="false" questiontextishtml="false"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="59" helptextishtml="false" questiontext="Drugs" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="60" isinstancedeletable="false" objecttype="Drug" helptextishtml="false" addrowtext="Add new drug" fieldtextishtml="false" questiontext="Drug" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<QUESTION id="137" isreadonly="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<BLOCK id="342" isspaceborder="true" helptextishtml="false" questiontext="#.name#" questiontextishtml="false" visualmode="AsTab">
+<QUESTION id="343" isreadonly="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="251" helptextishtml="false" questiontext="Add new drug" questiontextishtml="false">
+<QUESTION id="252" ismandatory="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="151" helptextishtml="false" questiontext="Edit #.name#" questiontextishtml="false">
+<QUESTION id="152" ismandatory="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="62" helptextishtml="false" questiontext="Database tables" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="63" isinstancedeletable="false" objecttype="CuratedDatabaseTable" helptextishtml="false" addrowtext="Add new table" fieldtextishtml="false" questiontext="CuratedDatabaseTable" questiontextishtml="false" signingdialogtextishtml="false" enteronaddrow="true">
+<SELECTION id="83" isreadonly="true" objectattributename="whichGene" helptextishtml="false" commentable="false" domain="InstancesOf#Gene*" instanceformat="#.name#" fieldtext="whichGene" fieldtextishtml="false" questiontextishtml="false" sortdirection="AscendingNullsFirst" visualmode="AsDropDown"/>
+<SELECTION id="113" isreadonly="true" objectattributename="fileType" helptextishtml="false" domain="pharmGKBFileType" fieldtext="fileType" fieldtextishtml="false" questiontextishtml="false" sortdirection="AscendingNullsFirst" visualmode="AsRadioGroup"/>
+<FILE id="80" isreadonly="true" objectattributename="_body" helptextishtml="false" commentable="false" fieldtext="CuratedDatabaseTableFile" fieldtextishtml="false" questiontextishtml="false"/>
+<DATE id="547" isreadonly="true" objectattributename="dateFromPharmGKB" columnhint="Date on which the data was downloaded from PharmGKB web" helptextishtml="false" fieldtext="dateFromPharmGKB" fieldtextishtml="false" questiontextishtml="false" requiredparts="YearMonthDay"/>
+<TEXT id="129" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+<BLOCK id="344" isspaceborder="true" helptextishtml="false" questiontext="#.fileType# #:createdAt#" questiontextishtml="false" visualmode="AsTab">
+<SELECTION id="345" isreadonly="true" objectattributename="whichGene" helptextishtml="false" commentable="false" domain="InstancesOf#Gene*" instanceformat="#.name#" fieldtext="whichGene" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDown"/>
+<SELECTION id="346" isreadonly="true" objectattributename="fileType" helptextishtml="false" domain="pharmGKBFileType" fieldtext="fileType" fieldtextishtml="false" questiontextishtml="false" visualmode="AsRadioGroup"/>
+<FILE id="347" isreadonly="true" objectattributename="_body" helptextishtml="false" commentable="false" fieldtext="CuratedDatabaseTableFile" fieldtextishtml="false" questiontextishtml="false"/>
+<DATE id="548" objectattributename="dateFromPharmGKB" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="dateFromPharmGKB" questiontextishtml="false" requiredparts="YearMonthDay"/>
+<TEXT id="348" helptextishtml="false" fieldtext="date" fieldtextishtml="false" questiontext="#:createdAt#" questiontextishtml="false"/>
+<TEXT id="349" helptextishtml="false" fieldtext="creator" fieldtextishtml="false" questiontext="#:creator#" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK subtype="AsModalAdd" id="130" helptextishtml="false" questiontext="Add new database table" questiontextishtml="false">
+<SELECTION id="131" ismandatory="true" objectattributename="whichGene" helptextishtml="false" commentable="false" domain="InstancesOf#Gene*" instanceformat="#.name#" fieldtext="whichGene" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDown"/>
+<SELECTION id="132" ismandatory="true" objectattributename="fileType" helptextishtml="false" commentable="false" domain="pharmGKBFileType" fieldtext="fileType" fieldtextishtml="false" questiontextishtml="false" visualmode="AsRadioGroup"/>
+<FILE id="133" ismandatory="true" objectattributename="_body" helptextishtml="false" fieldtext="CuratedDatabaseTableFile" fieldtextishtml="false" questiontextishtml="false"/>
+<DATE id="549" ismandatory="true" objectattributename="dateFromPharmGKB" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="dateFromPharmGKB" questiontextishtml="false" requiredparts="YearMonthDay"/>
+</BLOCK>
+<BLOCK subtype="AsModalEdit" id="350" helptextishtml="false" questiontext="Edit #.fileType# #:createdAt#" questiontextishtml="false">
+<SELECTION id="351" ismandatory="true" objectattributename="whichGene" helptextishtml="false" commentable="false" domain="InstancesOf#Gene*" instanceformat="#.name#" fieldtext="whichGene" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDown"/>
+<SELECTION id="352" ismandatory="true" objectattributename="fileType" helptextishtml="false" commentable="false" domain="pharmGKBFileType" fieldtext="fileType" fieldtextishtml="false" questiontextishtml="false" visualmode="AsRadioGroup"/>
+<FILE id="353" ismandatory="true" objectattributename="_body" helptextishtml="false" fieldtext="CuratedDatabaseTableFile" fieldtextishtml="false" questiontextishtml="false"/>
+<DATE id="550" objectattributename="dateFromPharmGKB" helptextishtml="false" commentable="false" fieldtextishtml="false" questiontext="dateFromPharmGKB" questiontextishtml="false" requiredparts="YearMonthDay"/>
+</BLOCK>
+</TABLE>
+</BLOCK>
+</MODULE>
+</QUESTIONNAIRE>

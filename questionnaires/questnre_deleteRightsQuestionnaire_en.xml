@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<QUESTIONNAIRE schemaversion="7" languagecode="en" study="KnowledgeBase" code="deleteRightsQuestionnaire" description="Questionnaire with delete rights" build="12" generatedat="2021-05-12T00:24:21.077+03:00" helptextishtml="false" displayvisualidarea="false" displayprevnextbuttons="false" newmoduleid="83">
+<ROLES>
+<ROLE name="deleteData"/>
+</ROLES>
+<MODULE id="1" description="GROUPING MODULE">
+<BLOCK id="15" helptextishtml="false" questiontext="Gene" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="16" objecttype="Gene" helptextishtml="false" fieldtextishtml="false" questiontext="Gene" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="17" isreadonly="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="18" isreadonly="true" objectattributename="chromosome" helptextishtml="false" commentable="false" fieldtext="chromosome" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<BLOCK id="19" isspaceborder="true" helptextishtml="false" questiontext="#.name#" questiontextishtml="false" visualmode="AsTab">
+<BLOCK id="20" helptextishtml="false" questiontext="Variant" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="21" objecttype="Variant" helptextishtml="false" fieldtextishtml="false" questiontext="Variant" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="22" isreadonly="true" objectattributename="rsID" helptextishtml="false" commentable="false" fieldtext="rsID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="23" isreadonly="true" objectattributename="variantID" helptextishtml="false" commentable="false" fieldtext="variantID" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<BLOCK id="30" isspaceborder="true" helptextishtml="false" questiontext="rsID = #.rsID#, variantID = #.variantID#" questiontextishtml="false" visualmode="AsTab">
+<BLOCK id="31" helptextishtml="false" questiontext="VariantReference" questiontextishtml="false" visualmode="AsTab">
+<TREE.MULTI id="32" isreadonly="true" objecttype="VariantReference" helptextishtml="false" domain="InstancesOf#Reference*" instanceformat="#.title#" fieldtextishtml="false" questiontext="VariantReference" questiontextishtml="false">
+<BLOCK id="33" isspaceborder="true" helptextishtml="false" questiontext="Citation" questiontextishtml="false" visualmode="AsTab">
+<BLOCK id="34" helptextishtml="false" questiontext="Citation" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="35" objecttype="Citation" helptextishtml="false" fieldtextishtml="false" questiontext="Citation" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="36" isreadonly="true" objectattributename="text" helptextishtml="false" commentable="false" fieldtext="text" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="38" isreadonly="true" objectattributename="isExactQuotation" helptextishtml="false" commentable="false" fieldtext="isExactQuotation" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+</TABLE>
+</BLOCK>
+</BLOCK>
+</TREE.MULTI>
+</BLOCK>
+<BLOCK id="39" helptextishtml="false" questiontext="Allele" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="40" objecttype="Allele" helptextishtml="false" fieldtextishtml="false" questiontext="Allele" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="41" isreadonly="true" objectattributename="allele" helptextishtml="false" commentable="false" fieldtext="allele" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<CHECK id="42" isreadonly="true" objectattributename="isWildType" helptextishtml="false" commentable="false" fieldtext="isWildType" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<QUESTION id="43" isreadonly="true" objectattributename="alleleEffectOnGene" helptextishtml="false" commentable="false" fieldtext="alleleEffectOnGene" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</TABLE>
+</BLOCK>
+<BLOCK id="44" helptextishtml="false" questiontext="Comment" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="45" objecttype="Comment" helptextishtml="false" fieldtextishtml="false" questiontext="Comment" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="46" isreadonly="true" objectattributename="comment" helptextishtml="false" commentable="false" fieldtext="comment" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</TABLE>
+</BLOCK>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="61" helptextishtml="false" questiontext="StarAllele" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="62" objecttype="StarAllele" helptextishtml="false" fieldtextishtml="false" questiontext="StarAllele" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="63" isreadonly="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<SELECTION id="64" isreadonly="true" objectattributename="function" helptextishtml="false" commentable="false" domain="InstancesOf#StarAlleleFunction*" instanceformat="#.function#" fieldtext="function" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<BLOCK id="71" isspaceborder="true" helptextishtml="false" questiontext="#.name#" questiontextishtml="false" visualmode="AsTab">
+<BLOCK id="72" helptextishtml="false" questiontext="StarAlleleReference" questiontextishtml="false" visualmode="AsTab">
+<TREE.MULTI id="73" isreadonly="true" objecttype="StarAlleleReference" helptextishtml="false" domain="InstancesOf#Reference*" instanceformat="#.pmid##.author##.year#" fieldtextishtml="false" questiontext="StarAlleleReference" questiontextishtml="false"/>
+</BLOCK>
+<BLOCK id="74" helptextishtml="false" questiontext="RelatedAllele" questiontextishtml="false" visualmode="AsTab">
+<TREE.MULTI id="75" isreadonly="true" objecttype="RelatedAllele" helptextishtml="false" domain="InstancesOf#Allele*" instanceformat="#.allele#" fieldtextishtml="false" questiontext="RelatedAllele" questiontextishtml="false"/>
+</BLOCK>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="47" helptextishtml="false" questiontext="StarAlleleFunction" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="48" objecttype="StarAlleleFunction" helptextishtml="false" fieldtextishtml="false" questiontext="StarAlleleFunction" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="49" isreadonly="true" objectattributename="function" helptextishtml="false" commentable="false" fieldtext="function" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</TABLE>
+</BLOCK>
+<BLOCK id="52" helptextishtml="false" questiontext="Phenotype" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="53" objecttype="Phenotype" helptextishtml="false" fieldtextishtml="false" questiontext="Phenotype" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="54" isreadonly="true" objectattributename="phenotype" helptextishtml="false" commentable="false" fieldtext="phenotype" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<BLOCK id="55" isspaceborder="true" helptextishtml="false" questiontext="#.phenotype#" questiontextishtml="false" visualmode="AsTab">
+<BLOCK id="56" helptextishtml="false" questiontext="PhenotypeTable" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="57" objecttype="PhenotypeTable" helptextishtml="false" fieldtextishtml="false" questiontext="PhenotypeTable" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<SELECTION id="58" isreadonly="true" objectattributename="starAlleleFunction1" helptextishtml="false" commentable="false" domain="InstancesOf#StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction1" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<SELECTION id="59" isreadonly="true" objectattributename="starAlleleFunction2" helptextishtml="false" commentable="false" domain="InstancesOf#StarAlleleFunction*" instanceformat="#.function#" fieldtext="starAlleleFunction2" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+</TABLE>
+</BLOCK>
+</BLOCK>
+</TABLE>
+</BLOCK>
+</BLOCK>
+</TABLE>
+</BLOCK>
+<BLOCK id="5" helptextishtml="false" questiontext="Reference" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="6" objecttype="Reference" helptextishtml="false" fieldtextishtml="false" questiontext="Reference" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="7" isreadonly="true" objectattributename="title" helptextishtml="false" commentable="false" fieldtext="title" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="8" isreadonly="true" objectattributename="author" helptextishtml="false" commentable="false" fieldtext="author" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="9" isreadonly="true" objectattributename="pmid" helptextishtml="false" commentable="false" fieldtext="pmid" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="10" isreadonly="true" objectattributename="year" helptextishtml="false" commentable="false" fieldtext="year" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="11" isreadonly="true" objectattributename="mainLink" helptextishtml="false" commentable="false" fieldtext="mainLink" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<QUESTION id="12" isreadonly="true" objectattributename="supplementLink" helptextishtml="false" commentable="false" fieldtext="supplementLink" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+<SELECTION id="13" isreadonly="true" objectattributename="whichDrugs" helptextishtml="false" commentable="false" domain="InstancesOf#Drug*" instanceformat="#.name#" fieldtext="whichDrugs" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<CHECK id="14" isreadonly="true" objectattributename="isClinicalGuideline" helptextishtml="false" commentable="false" fieldtext="isClinicalGuideline" fieldtextishtml="false" questiontextishtml="false" visualmode="As3StateYesNo"/>
+<FILE.MULTI id="81" isreadonly="true" objecttype="ReferenceFile" helptextishtml="false" fieldtext="ReferenceFile" fieldtextishtml="false" questiontextishtml="false"/>
+</TABLE>
+</BLOCK>
+<BLOCK id="2" helptextishtml="false" questiontext="Drug" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="3" objecttype="Drug" helptextishtml="false" fieldtextishtml="false" questiontext="Drug" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<QUESTION id="4" isreadonly="true" objectattributename="name" helptextishtml="false" commentable="false" fieldtext="name" fieldtextishtml="false" maxinputlength="1024" questiontextishtml="false"/>
+</TABLE>
+</BLOCK>
+<BLOCK id="76" helptextishtml="false" questiontext="CuratedDatabaseTable" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="77" objecttype="CuratedDatabaseTable" helptextishtml="false" fieldtextishtml="false" questiontext="CuratedDatabaseTable" questiontextishtml="false" signingdialogtextishtml="false" enableaddrow="false">
+<FILE id="78" isreadonly="true" objectattributename="_body" helptextishtml="false" commentable="false" fieldtext="_body" fieldtextishtml="false" questiontextishtml="false"/>
+<SELECTION id="79" isreadonly="true" objectattributename="whichGene" helptextishtml="false" commentable="false" domain="InstancesOf#Gene*" instanceformat="#.name#" fieldtext="whichGene" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDownSearch" enableautocomplete="true"/>
+<SELECTION id="80" isreadonly="true" objectattributename="fileType" helptextishtml="false" commentable="false" domain="pharmGKBFileType" instanceformat="#:itemCode# - #:itemName#" fieldtext="fileType" fieldtextishtml="false" questiontextishtml="false" visualmode="AsDropDown"/>
+</TABLE>
+</BLOCK>
+</MODULE>
+</QUESTIONNAIRE>

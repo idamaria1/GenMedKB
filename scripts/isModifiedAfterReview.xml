@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCRIPT generatedat="2021-05-07T18:00:07.596+03:00" name="isModifiedAfterReview" schemaversion="1" scriptinglanguage="JavaScript"><![CDATA[function isModifiedAfterReview(rev, mod) {
+
+	if (rev==null || rev=='') return false;
+	
+	if(rev != '' && rev != null){
+		
+		var revd = exampleInputToDate(rev);
+		var modd = exampleInputToDate(mod);
+		//return [revd, modd, revd < modd]; //this works
+		
+		var differenceInSeconds = (modd - revd) / 1000;
+		// return(Number(differenceInSeconds));
+		
+		
+		return differenceInSeconds > 5; // there is 60 sec grace period
+	} else {
+		return false;
+	}
+}
+
+
+function exampleInputToDate(inputTimestamp) {
+    if (inputTimestamp == null){
+        return 'Value is not valid timestamp';
+    }
+
+    var year = inputTimestamp.substring(0,4);
+    var month = parseInt(inputTimestamp.substring(5,7), 10) - 1;
+    var day = inputTimestamp.substring(8,10);
+    var hours = inputTimestamp.substring(11,13);
+    var minutes = inputTimestamp.substring(14,16);
+    var seconds = inputTimestamp.substring(17,19);
+    var milliseconds = 0;
+
+    var localTimestamp = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+    return localTimestamp;
+}]]>
+<SCRIPTTESTS>
+<INPUTSET name="noReview" expectedresult="False">
+<INPUT name="rev" value="" isna="true"/>
+<INPUT name="mod" value="2021-05-07T16:36:59"/>
+</INPUTSET>
+<INPUTSET name="revBefore" expectedresult="True">
+<INPUT name="rev" value="2020-05-07T16:36:59"/>
+<INPUT name="mod" value="2021-05-07T16:36:59"/>
+</INPUTSET>
+<INPUTSET name="revAfter" expectedresult="False">
+<INPUT name="rev" value="2022-05-07T16:36:59"/>
+<INPUT name="mod" value="2021-05-07T16:36:59"/>
+</INPUTSET>
+<INPUTSET name="rev=mod" expectedresult="False">
+<INPUT name="rev" value="2021-05-07T16:36:59"/>
+<INPUT name="mod" value="2021-05-07T16:36:59"/>
+</INPUTSET>
+<INPUTSET name="rev+59=mod" expectedresult="False" isignored="true">
+<INPUT name="rev" value="2021-05-07T16:36:59"/>
+<INPUT name="mod" value="2021-05-07T16:37:58"/>
+</INPUTSET>
+<INPUTSET name="rev+61=mod" expectedresult="True" isignored="true">
+<INPUT name="rev" value="2021-05-07T16:36:59"/>
+<INPUT name="mod" value="2021-05-07T16:38:00"/>
+</INPUTSET>
+</SCRIPTTESTS>
+</SCRIPT>

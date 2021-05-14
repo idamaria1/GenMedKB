@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCRIPT generatedat="2021-05-10T11:45:38.695+03:00" name="isAnyNotReviewed" schemaversion="1" scriptinglanguage="JavaScript"><![CDATA[function isAnyNotReviewed(isReviewedArray) {
+	
+	// sisendi teisendamine JavaScript massiiviks
+   var isReviewedArray = array_string_to_js_array(isReviewedArray);
+
+	// massiivi läbimine + summa leidmine
+   for(i = 0; i < isReviewedArray.length; i++){
+       if(isReviewedArray[i]=="False" || isReviewedArray[i]=="") return true;
+   }
+
+	return false;
+
+}
+
+function array_string_to_js_array ( inputString ) {
+        if (inputString == null || inputString == '' || inputString == '[]') {return [];} // deals with empty array
+    var result = inputString.replace("[,", "['',");
+    result = result.replace(",]", ",'']");
+    while (result.indexOf(",,") >= 0) {
+        result = result.replace(",,", ",'',"); // deals with poorly constructed array like [,,'',]
+    }
+    var resultArray = result.substring(2, result.length-2); // removes [' from the beginning and '] from the end
+    return resultArray.split("','");
+}]]>
+<SCRIPTTESTS>
+<INPUTSET name="empty" expectedresult="False">
+<INPUT name="isReviewedArray" value="" isna="true"/>
+</INPUTSET>
+<INPUTSET name="allReviewed" expectedresult="False">
+<INPUT name="isReviewedArray" value="['True','True']"/>
+</INPUTSET>
+<INPUTSET name="someNotReviewed" expectedresult="True">
+<INPUT name="isReviewedArray" value="['True','False']"/>
+</INPUTSET>
+<INPUTSET name="someEmpty" expectedresult="True">
+<INPUT name="isReviewedArray" value="['True','','True']"/>
+</INPUTSET>
+</SCRIPTTESTS>
+</SCRIPT>

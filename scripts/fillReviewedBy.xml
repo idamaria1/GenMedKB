@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCRIPT generatedat="2021-05-07T18:28:39.627+03:00" name="fillReviewedBy" schemaversion="1" scriptinglanguage="JavaScript"><![CDATA[function fillReviewedBy(isReviewed, reviewedBy, username) {
+   // Server.logInfo("Script input parameters: isReviewed - " + isReviewed + "; reviewedBy - " + reviewedBy + "; username - " + username);
+   if(isReviewed == "True" && (reviewedBy=="" || reviewedBy==null)) {
+   	return username;
+   } else if (isReviewed=="True" && reviewedBy!="") {
+   	return reviewedBy;
+   } else {
+   	return "";
+   }
+}]]>
+<SCRIPTTESTS>
+<INPUTSET name="NotReviewedNoTimestamp" expectedresult="">
+<INPUT name="isReviewed" value="False"/>
+<INPUT name="reviewedBy" value=""/>
+<INPUT name="username" value="test@kasutaja.ee"/>
+</INPUTSET>
+<INPUTSET name="NotReviewedButTimestamp" expectedresult="">
+<INPUT name="isReviewed" value="False"/>
+<INPUT name="reviewedBy" value="xxx@xxx.ee"/>
+<INPUT name="username" value="test@kasutaja.ee&amp;#10;test@kasutaja.ee"/>
+</INPUTSET>
+<INPUTSET name="ReviewedNoTimestamp" expectedresult="test@kasutaja.ee">
+<INPUT name="isReviewed" value="True"/>
+<INPUT name="reviewedBy" value=""/>
+<INPUT name="username" value="test@kasutaja.ee"/>
+</INPUTSET>
+<INPUTSET name="ReviewedAndTimestamp" expectedresult="xxx@xxx.ee">
+<INPUT name="isReviewed" value="True"/>
+<INPUT name="reviewedBy" value="xxx@xxx.ee"/>
+<INPUT name="username" value="test@kasutaja.ee"/>
+</INPUTSET>
+</SCRIPTTESTS>
+</SCRIPT>

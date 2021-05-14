@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCRIPT generatedat="2021-05-11T19:22:15.585+03:00" name="isAnyVariantOrStarAlleleNotReviewed" schemaversion="1" scriptinglanguage="JavaScript"><![CDATA[function isAnyVariantOrStarAlleleNotReviewed(variantsIsReviewed, starAllelesIsReviewed) {
+   Server.logInfo("Script input parameters: param1 - " + variantsIsReviewed + "; param2 - " + starAllelesIsReviewed);
+	
+	//convert input to JavaScript array
+   var variantsIsReviewed = array_string_to_js_array(variantsIsReviewed);
+
+	//iterate over the array and find sum
+   for(i = 0; i < variantsIsReviewed.length; i++){
+       if(variantsIsReviewed[i]=="False") return true;
+   }
+   
+   //convert input to JavaScript array
+   var starAllelesIsReviewed = array_string_to_js_array(starAllelesIsReviewed);
+
+	//iterate over the array and find sum
+   for(i = 0; i < starAllelesIsReviewed.length; i++){
+       if(starAllelesIsReviewed[i]=="False") return true;
+   }
+
+	return false;
+
+}
+
+function array_string_to_js_array ( inputString ) {
+        if (inputString == null || inputString == '' || inputString == '[]') {return [];} // deals with empty array
+    var result = inputString.replace("[,", "['',");
+    result = result.replace(",]", ",'']");
+    while (result.indexOf(",,") >= 0) {
+        result = result.replace(",,", ",'',"); // deals with poorly constructed array like [,,'',]
+    }
+    var resultArray = result.substring(2, result.length-2); // removes [' from the beginning and '] from the end
+    return resultArray.split("','");
+}]]>
+<SCRIPTTESTS>
+<INPUTSET name="emptyInput" expectedresult="False">
+<INPUT name="variantsIsReviewed" value="" isna="true"/>
+<INPUT name="starAllelesIsReviewed" value="" isna="true"/>
+</INPUTSET>
+<INPUTSET name="VariantsNotReviewedStarAllelesNotReviewed" expectedresult="True">
+<INPUT name="variantsIsReviewed" value="['False']"/>
+<INPUT name="starAllelesIsReviewed" value="['False','True']"/>
+</INPUTSET>
+<INPUTSET name="VariantsNotReviewedStarAllelesReviewed" expectedresult="True">
+<INPUT name="variantsIsReviewed" value="['False','True']"/>
+<INPUT name="starAllelesIsReviewed" value="['True','True']"/>
+</INPUTSET>
+<INPUTSET name="VariantsReviewedStarAllelesReviewed" expectedresult="False">
+<INPUT name="variantsIsReviewed" value="['True','True']"/>
+<INPUT name="starAllelesIsReviewed" value="['True','True']"/>
+</INPUTSET>
+<INPUTSET name="VariantsReviewedStarAllelesNotReviewed" expectedresult="True">
+<INPUT name="variantsIsReviewed" value="['True','True']"/>
+<INPUT name="starAllelesIsReviewed" value="['True','False']"/>
+</INPUTSET>
+</SCRIPTTESTS>
+</SCRIPT>

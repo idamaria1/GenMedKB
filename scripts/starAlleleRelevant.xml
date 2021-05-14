@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCRIPT generatedat="2021-04-23T15:12:22.999+03:00" name="starAlleleRelevant" schemaversion="1" scriptinglanguage="JavaScript"><![CDATA[function starAlleleRelevant(unknown, normal, wild, main, supplement, exception) {
+	if(unknown == "True" && exception == "False"
+	|| normal == "True" && wild == "False" && exception == "False"
+	|| main == "False" && supplement == "False" && exception == "False"){
+		return false;
+	}
+	else{
+		return true;
+	}
+
+}]]></SCRIPT>

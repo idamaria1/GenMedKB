@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<QUESTIONNAIRE schemaversion="7" languagecode="en" study="KnowledgeBase" code="export" description="Export to medical device" build="8" generatedat="2021-05-12T23:55:17.721+03:00" helptextishtml="false" displayvisualidarea="false" displayprevnextbuttons="false" newmoduleid="138">
+<ROLES>
+<ROLE name="administrator"/>
+<ROLE name="curator"/>
+</ROLES>
+<MODULE id="1" description="GRUPEERIV MOODUL">
+<BLOCK id="131" helptextishtml="false" questiontext="Export checks" questiontextishtml="false" visualmode="AsTab">
+<TEXT id="132" helptextishtml="false" fieldtextishtml="false" questiontext="Before exporting the data to medical device, ensure that all the following tests are passed:" questiontextishtml="false"/>
+<TEXT id="133" helptextishtml="false" fieldtextishtml="false" questiontext="&lt;font color='green'&gt;PASSED: All variants having used_by_algorithm=TRUE are in &quot;Reviewed&quot; state.&lt;/font&gt;">
+<CALLSCRIPT function="isAnyNotReviewed" value="False" action="Show">
+<INPUT name="isReviewedArray" value="#ExportVariant*.isReviewed#"/>
+</CALLSCRIPT>
+</TEXT>
+<TEXT id="134" helptextishtml="false" fieldtextishtml="false" questiontext="&lt;font color='red'&gt;FAILED: Not all variants having used_by_algorithm=TRUE are in &quot;Reviewed&quot; state. Do not export for medical device.&lt;/font&gt;">
+<CALLSCRIPT function="isAnyNotReviewed" value="True" action="Show">
+<INPUT name="isReviewedArray" value="#ExportVariant*.isReviewed#"/>
+</CALLSCRIPT>
+</TEXT>
+<TEXT id="135" helptextishtml="false" fieldtextishtml="false" questiontext="&lt;font color='green'&gt;PASSED: All star alleles having important_for_algorithm=True are in &quot;Reviewed&quot; state.&lt;/font&gt;">
+<CALLSCRIPT function="isAnyNotReviewed" value="False" action="Show">
+<INPUT name="isReviewedArray" value="#ExportStarAllele*.isReviewed#"/>
+</CALLSCRIPT>
+</TEXT>
+<TEXT id="136" helptextishtml="false" fieldtextishtml="false" questiontext="&lt;font color='red'&gt;FAILED: Not all star alleles having important_for_algorithm=True are in &quot;Reviewed&quot; state. Do not export for medical device.&lt;/font&gt;">
+<CALLSCRIPT function="isAnyNotReviewed" value="True" action="Show">
+<INPUT name="isReviewedArray" value="#ExportStarAllele*.isReviewed#"/>
+</CALLSCRIPT>
+</TEXT>
+<TEXT id="137" helptextishtml="false" fieldtextishtml="false" questiontext="&lt;font color='green'&gt;PASSED: All genes in star allele definitions are in &quot;Reviewed&quot; state.&lt;/font&gt;">
+<CALLSCRIPT function="isAnyNotReviewed" value="False" action="Show">
+<INPUT name="isReviewedArray" value="#ExportStarAlleleDefinition*.isReviewed#"/>
+</CALLSCRIPT>
+</TEXT>
+<TEXT id="138" helptextishtml="false" fieldtextishtml="false" questiontext="&lt;font color='red'&gt;FAILED: Not all genes in star allele definitions are in &quot;Reviewed&quot; state. Do not export for medical device.&lt;/font&gt;">
+<CALLSCRIPT function="isAnyNotReviewed" value="True" action="Show">
+<INPUT name="isReviewedArray" value="#ExportStarAlleleDefinition*.isReviewed#"/>
+</CALLSCRIPT>
+</TEXT>
+</BLOCK>
+<BLOCK id="104" helptextishtml="false" questiontext="ExportVariant" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="105" isreadonly="true" isinstancedeletable="false" objecttype="ExportVariant" helptextishtml="false" fieldtextishtml="false" rowsperpage="100" questiontext="ExportVariant" questiontextishtml="false" signingdialogtextishtml="false" enabledataexport="true">
+<TEXT id="106" helptextishtml="false" fieldtext="gene" fieldtextishtml="false" questiontext="#.gene#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="107" helptextishtml="false" fieldtext="variantID" fieldtextishtml="false" questiontext="#.variantID#" questiontextishtml="false"/>
+<TEXT id="108" helptextishtml="false" fieldtext="rsID" fieldtextishtml="false" questiontext="#.rsID#" questiontextishtml="false"/>
+<TEXT id="109" helptextishtml="false" fieldtext="chromosome" fieldtextishtml="false" questiontext="#.chromosome#" questiontextishtml="false"/>
+<TEXT id="110" helptextishtml="false" fieldtext="posHG37" fieldtextishtml="false" questiontext="#.posHG37#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="111" helptextishtml="false" fieldtext="possibleAlleles" fieldtextishtml="false" questiontext="#.possibleAlleles#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+</TABLE>
+</BLOCK>
+<BLOCK id="112" helptextishtml="false" questiontext="ExportStarAllele" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="113" isreadonly="true" isinstancedeletable="false" objecttype="ExportStarAllele" helptextishtml="false" fieldtextishtml="false" rowsperpage="100" questiontext="ExportStarAllele" questiontextishtml="false" signingdialogtextishtml="false" enabledataexport="true">
+<TEXT id="114" helptextishtml="false" fieldtext="gene" fieldtextishtml="false" questiontext="#.gene#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="115" helptextishtml="false" fieldtext="starAlleleName" fieldtextishtml="false" questiontext="#.starAlleleName#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="116" helptextishtml="false" fieldtext="function" fieldtextishtml="false" questiontext="#.function#" questiontextishtml="false"/>
+<TEXT id="117" helptextishtml="false" fieldtext="isNoFunction" fieldtextishtml="false" questiontext="#.isNoFunction#" questiontextishtml="false"/>
+<TEXT id="118" helptextishtml="false" fieldtext="isWildType" fieldtextishtml="false" questiontext="#.isWildType#" questiontextishtml="false"/>
+</TABLE>
+</BLOCK>
+<BLOCK id="119" helptextishtml="false" questiontext="ExportStarAlleleDefinition" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="120" isreadonly="true" isinstancedeletable="false" objecttype="ExportStarAlleleDefinition" helptextishtml="false" fieldtextishtml="false" rowsperpage="100" questiontext="ExportStarAlleleDefinition" questiontextishtml="false" signingdialogtextishtml="false" enabledataexport="true">
+<TEXT id="121" helptextishtml="false" fieldtext="gene" fieldtextishtml="false" questiontext="#.gene#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="122" helptextishtml="false" fieldtext="starAlleleName" fieldtextishtml="false" questiontext="#.starAlleleName#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="123" helptextishtml="false" fieldtext="variantID" fieldtextishtml="false" questiontext="#.variantID#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="124" helptextishtml="false" fieldtext="allele" fieldtextishtml="false" questiontext="#.allele#" questiontextishtml="false"/>
+</TABLE>
+</BLOCK>
+<BLOCK id="125" helptextishtml="false" questiontext="ExportFunctionToPhenotype" questiontextishtml="false" visualmode="AsTab">
+<TABLE id="126" isreadonly="true" isinstancedeletable="false" objecttype="ExportFunctionToPhenotype" helptextishtml="false" fieldtextishtml="false" rowsperpage="100" questiontext="ExportFunctionToPhenotype" questiontextishtml="false" signingdialogtextishtml="false" enabledataexport="true">
+<TEXT id="127" helptextishtml="false" fieldtext="gene" fieldtextishtml="false" questiontext="#.gene#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="128" helptextishtml="false" fieldtext="function1" fieldtextishtml="false" questiontext="#.function1#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="129" helptextishtml="false" fieldtext="function2" fieldtextishtml="false" questiontext="#.function2#" questiontextishtml="false" sortdirection="AscendingNullsFirst"/>
+<TEXT id="130" helptextishtml="false" fieldtext="phenotype" fieldtextishtml="false" questiontext="#.phenotype#" questiontextishtml="false"/>
+</TABLE>
+</BLOCK>
+</MODULE>
+</QUESTIONNAIRE>

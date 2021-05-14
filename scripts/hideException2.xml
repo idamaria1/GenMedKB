@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SCRIPT generatedat="2021-04-23T14:37:19.209+03:00" name="hideException2" schemaversion="1" scriptinglanguage="JavaScript"><![CDATA[function hideException2(normal, wild) {
+   if(normal == "True" && wild == "False"){
+   	return true;
+   }
+}]]></SCRIPT>
